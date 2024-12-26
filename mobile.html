@@ -95,6 +95,11 @@
 
     <script type="module">
        
+        const videoElement = document.getElementById('background-video');
+        videoElement.addEventListener('loadedmetadata', () => {
+            videoElement.setAttribute('playsinline', true); 
+        });
+       
         function decodeBase64(encoded) {
             return atob(encoded);
         }
