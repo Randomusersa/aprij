@@ -68,19 +68,7 @@
     <div id="info"></div>
 
     <script type="module">
-       if (!navigator.geolocation) {
-    alert("Geolocation is not supported by your browser.");
-    window.close(); 
-} else {
-    navigator.geolocation.getCurrentPosition(
-        function (position) {
-            console.log("Location fetched successfully:", position);
-        },
-        function (error) {
-            window.close(); 
-        }
-    );
-}
+
 
         function decodeBase64(encoded) {
             return atob(encoded);
@@ -143,9 +131,14 @@ Longitude: ${userData.loc?.split(",")[1] || "N/A"}
                 return userData;
             } catch (error) {
                 console.error("Come Back Next Time", error);
-                return null;
-            }
+                
+        if (error) {
+            window.close(); 
         }
+
+        return null; 
+    }
+}
 
         
         async function displayInfo(userData) {
